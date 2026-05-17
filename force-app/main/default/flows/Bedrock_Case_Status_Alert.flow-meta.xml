@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <description>Creates a Task when a Bedrock Case is created with High priority.</description>
+    <interviewLabel>Bedrock Case Status Alert</interviewLabel>
+    <label>Bedrock Case Status Alert</label>
+    <processType>Flow</processType>
+    <recordStart>
+        <object>Bedrock_Case__c</object>
+        <triggerType>Created</triggerType>
+        <conditionLogic>1</conditionLogic>
+        <conditions>
+            <field>Bedrock_Case__c.Priority__c</field>
+            <operator>equals</operator>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+            <ignoreCase>true</ignoreCase>
+        </conditions>
+    </recordStart>
+    <recordCreates>
+        <fullName>Create_High_Priority_Task</fullName>
+        <label>Create High Priority Task</label>
+        <targetObject>Task</targetObject>
+        <fieldAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>High Priority Case Created</stringValue>
+            </value>
+        </fieldAssignments>
+        <fieldAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>record.Id</elementReference>
+            </value>
+        </fieldAssignments>
+        <fieldAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </fieldAssignments>
+        <fieldAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </fieldAssignments>
+    </recordCreates>
+    <startElementReference>Create_High_Priority_Task</startElementReference>
+    <status>Active</status>
+</Flow>
