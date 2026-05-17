@@ -1,0 +1,30 @@
+name: Validate PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install -g @salesforce/cli
+
+      - name: Authenticate to Salesforce
+        run: |
+          echo "${{ secrets.SFDX_AUTH_URL }}" > auth_url.txt
+          sf org login sfdx-url --sfdx-url-file auth_url.txt --alias target-org
+
+      - name: Validate metadata and run Apex tests
+        run: |
+          sf project deploy validate \
+            --metadata "CustomObject:Bedrock_Case__c" \
+            --metadata "ApexClass:BedrockCaseHandler" \
+            --metadata "ApexClass:BedrockCaseHandlerTest" \
+            --metadata "PermissionSet:Bedrock_Case_Access" \
+            --target-org target-org \
+            --test-level RunLocalTests
