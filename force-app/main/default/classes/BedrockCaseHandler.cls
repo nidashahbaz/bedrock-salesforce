@@ -1,10 +1,14 @@
 /**
  * Utility class for Bedrock Case operations used in the Bedrock Enterprises demo.
+ *
+ * @description Utility class for Bedrock Case operations used in the Bedrock Enterprises demo.
  */
 // Updated as part of Bedrock DevSecOps demo - US-001
 public with sharing class BedrockCaseHandler {
     /**
      * Close low-priority Bedrock cases by setting Status__c to Closed.
+     *
+     * @description Close low-priority Bedrock cases by setting Status__c to Closed.
      */
     public static void closeLowPriorityCases() {
         if (!Schema.sObjectType.Bedrock_Case__c.isAccessible() || !Schema.sObjectType.Bedrock_Case__c.isUpdateable()) {
