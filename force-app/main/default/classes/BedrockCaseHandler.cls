@@ -3,7 +3,7 @@
  *
  * @description Utility class for Bedrock Case operations used in the Bedrock Enterprises demo.
  */
-// Updated as part of Bedrock DevSecOps demo - US-001
+// DemoUpdated as part of Bedrock DevSecOps demo - US-001
 public with sharing class BedrockCaseHandler {
     /**
      * Close low-priority Bedrock cases by setting Status__c to Closed.
